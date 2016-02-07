@@ -1,8 +1,10 @@
 package com.twh5257_jdm5908_bw.ist402.autopurchase;
 
+import android.content.Intent;
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -64,5 +66,22 @@ public class PurchaseActivity extends AppCompatActivity {
         loanReport += res.getString(R.string.report_line5);
     }
 
+    public void activateLoanSummary(View view){
 
+        // Build a loan report from the input data
+        collectAutoInputData();
+        buildLoanReport();
+
+        // Create an intent to display the loan summary activity
+        Intent launchReport = new Intent(this, LoanSummaryActivity.class);
+
+        // Pass the loan summary activity two pieces of data
+        // The loan report containing loan details
+        // The monthly payment
+        launchReport.putExtra("LoanReport", loanReport);
+        launchReport.putExtra("MonthlyPayment", monthlyPayment);
+
+        // Starting activity
+        startActivity(launchReport);
+    }
 }
